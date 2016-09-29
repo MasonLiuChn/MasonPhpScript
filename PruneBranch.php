@@ -22,9 +22,13 @@ $foo2 = new Foo();
 $foo2->aMemberFunc();
 
 if (!count(debug_backtrace())) {
-    $projectDir = "/Users/admin/Project/AS_WORK/Jarvis";
+    //$projectDir = "/Users/admin/Project/AS_WORK/CaptainAmerica";
+    //$projectDir = "/Users/admin/Project/AS_WORK/Jarvis";
+    $projectDir = "/Users/admin/Project/XC_WORK/Megatron";
     chdir($projectDir);
     echo getcwd() . "\n";
+    passthru("git remote prune origin");
+    passthru("git remote prune upstream");
     exec("git branch -r --merged", $resultArray);
     foreach ($resultArray as $value) {
         //==  两边值类型不同的时候，要先进行类型转换，再比较。 === 不做类型转换，类型不同的一定不等。
@@ -32,8 +36,8 @@ if (!count(debug_backtrace())) {
             print $value."\n";
             $pieces = explode("/", $value, 2);
             print_r($pieces);
-            //passthru("git push " . $pieces[0] . " :" . $pieces[1]);
-            //passthru("git branch -d " . $pieces[1]);
+            passthru("git push " . $pieces[0] . " :" . $pieces[1]);
+            passthru("git branch -d " . $pieces[1]);
         }
     }
 }
